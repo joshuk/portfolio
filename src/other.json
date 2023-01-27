@@ -5,7 +5,6 @@
     "description": "A fun (but messy) web app I made over a weekend to cash in on a joke",
     "image_small": "/images/taiko-cat/taikocat_sm.png",
     "image_large": "/images/taiko-cat/taikocat_lg.png",
-    "markdownPath": "/src/taiko-cat.md",
-    "isPublished": false
+    "isPublished": true
   }
 }

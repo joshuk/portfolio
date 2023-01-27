@@ -114,6 +114,11 @@ h5 {
     font-weight: 800;
     line-height: 2;
   }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 }
 
 h1 {

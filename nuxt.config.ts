@@ -34,7 +34,21 @@ export default defineNuxtConfig({
     }
   },
 
+  modules: [
+    '@nuxt/content'
+  ],
+
+  content: {
+    highlight: {
+      theme: 'monokai',
+      preload: [
+        'css', 'javascript'
+      ]
+    }
+  },
+
   vite: {
-    plugins: [svgLoader()]
+    plugins: [svgLoader()],
+    assetsInclude: ['**/*.md']
   }
 })

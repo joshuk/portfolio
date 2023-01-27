@@ -4,15 +4,6 @@
     "date": "April 2020",
     "description": "A surprisingly long run down of the process behind making this website, what it's made with and how it works",
     "image": "/images/josh-ee/cover.png",
-    "markdownPath": "/src/joshee.md",
     "isPublished": true
-  },
-  "josh-ee-2": {
-    "title": "Josh.ee",
-    "date": "April 2020",
-    "description": "A surprisingly long run down of the process behind making this website, what it's made with and how it works",
-    "image": "/images/josh-ee/cover.png",
-    "markdownPath": "/src/joshee.md",
-    "isPublished": false
   }
 }

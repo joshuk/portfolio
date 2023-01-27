@@ -1,0 +1,377 @@
+<html>
+	<head>
+		<script src = 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.3.0/jszip.min.js'></script>
+		<script src="https://cdn.jsdelivr.net/npm/howler@2.0.15/dist/howler.min.js"></script>
+		<link href="https://fonts.googleapis.com/css?family=Itim" rel="stylesheet">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<style>
+		body { font-family: 'Itim', cursive; height: 100%; overflow: hidden; }
+
+		.loading { position: absolute; bottom: -40px; left: 0px; margin: 10px; z-index: 4; height: 27px; transition: bottom 0.5s; }
+		.loading.active { bottom: 0px; }
+		.loading img { width: 25px; margin-bottom: -5px; }
+		.loading.active img { animation: 1s spin infinite; }
+		.loading span { display: inline-block; margin: 0px 0px 5px 5px; }
+
+		.slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; text-align: center; display: flex; align-items: center; text-shadow: 0px 0px 2px white; opacity: 0; transition: opacity 0.5s; background-color:rgba(255,255,255,0.5); }
+		.slide.active { opacity: 1; }
+		.slide h1 { font-size: 50px; line-height: 50px; margin: 0px 0px 35px; }
+		.slide h1 span,
+		.slide h2 span,
+		.slide h3 span { color: #FB9D9E; }
+		p { font-size: 14px; margin-top: 15px; }
+		a { color: #FB9D9E; text-decoration: none; }
+		a:hover { text-decoration: underline; }
+
+		.slide-main { z-index: 2; }
+		.slide-main label { font-size: 30px; line-height: 25px; padding: 10px 20px; border-radius: 25px; background-image: url('images/button-bg.png'); }
+		.slide-main label span { font-size: 14px; color: #FB9D9E; display: block; }
+		.slide-main input[type=file] { display: none; }
+
+		.slide-popup { z-index: 3; }
+		.slide-popup h2 { margin: 0px; }
+		.slide-popup h3 { margin-bottom: 10px; }
+		.slide-popup .map-select { font-size: 18px; position: relative; display: block; margin-bottom: 5px; cursor: pointer; }
+		.slide-popup .map-select:hover::before { content: ''; position: absolute; width: 18px; height: 18px; background: url('images/paw.png'); background-size: cover; margin-left: -25px; animation: 1s twist infinite; }
+		.slide-popup .cross { font-size: 25px; position: absolute; top: 10px; right: 15px; }
+
+		.content{ margin: 0px auto; }
+
+		.player-slide { width: 100%; height: 100%; display: flex; align-items: center; z-index: 0; }
+
+		#cat { width: 95%; max-width: 850px; max-height: 450px; margin: 0px auto; filter: blur(0px); opacity: 1; transition: filter 0.5s, opacity 0.5s; }
+		#cat.nofocus { filter: blur(3px); opacity: 0.3; }
+
+		.credits { position: absolute; bottom: 10px; right: 10px; z-index: 4; }
+		.credits p { margin: 0px; }
+
+		@keyframes spin {
+		    from {transform:rotate(0deg);}
+		    to {transform:rotate(360deg);}
+		}
+
+		@keyframes twist {
+			0% { transform: rotate(30deg); }
+			50% { transform: rotate(-10deg); }
+			100% { transform: rotate(30deg); }
+		}
+		</style>
+		<title>taiko.cat</title>
+	</head>
+	<body>
+		<div class = 'loading'>
+			<img src = 'images/loading.png' alt = 'loading'/>
+			<span>loading...</span>
+		</div>
+		<div class = 'slide slide-popup' style = 'z-index: -1;'>
+			<div class = 'cross' data-open = 'slide-main'>
+				<a>X</a>
+			</div>
+			<div class = 'content'>
+			</div>
+		</div>
+		<div class = 'slide slide-main active'>
+			<div class = 'content'>
+				<h1>taiko<span>.</span>cat</h1>
+				<label for = 'inputFile'>Upload</label>
+				<input id = 'inputFile' type = 'file' class = 'map' allow = '.osz'/>
+				<p>.osz files only please</p>
+				<p>no .osz files? download them <a href = 'https://osu.ppy.sh/beatmapsets?m=1' target = '_blank' rel = 'noopener noreferrer'/>here.</a></p>
+			</div>
+		</div>
+		<div class = 'player-slide'>
+			<canvas id = 'cat' class = 'nofocus' width = '850' height = '450'></canvas>
+		</div>
+		<script>
+			function drawCat(paws = false){
+				ctx.clearRect(0, 0, 850, 550);
+				ctx.drawImage(catImg, 0, 0);
+				ctx.drawImage(mouthImg, 0, 0);
+				if(paws){
+					ctx.drawImage(leftUpImg, 0, 0);
+					ctx.drawImage(rightUpImg, 0, 0);
+				}
+			}
+
+			function draw(cT){
+				if(loadDone == true){
+					if(loading.classList.contains('active')){
+						loading.classList.remove('active');
+					}
+
+					if(!startTime){
+						startTime = Date.now();
+					}else{
+						timer = Math.ceil(Date.now() - startTime);
+					}
+
+					if(latestNote == false){
+						latestNote = mapItems[0];
+					}
+
+					if(timer > leadIn){
+						if(!audio.playing()){
+							audio.play();
+						}
+
+						if(timer+100 >= latestNote[0]){
+							drawCat();
+
+							ctx.drawImage(leftUpImg, 0, 0);
+							ctx.drawImage(rightUpImg, 0, 0);
+
+							if(latestNote[2] == '2' || latestNote[2] == '4'){
+								ctx.drawImage(browImg, 0, 0);
+							}
+						}
+
+						if(timer >= latestNote[0]){
+							if(timer-latestNote[0] < 200){
+								drawCat();
+								//read the note
+								switch(latestNote[2]){
+									case '1':
+										ctx.drawImage(leftDownImg, 0, 0);
+										ctx.drawImage(rightUpImg, 0, 0);
+
+										redS.play();
+									break;
+									case '2':
+										ctx.drawImage(leftDownHardImg, 0, 0);
+										ctx.drawImage(rightUpImg, 0, 0);
+										ctx.drawImage(browImg, 0, 0);
+
+										redHardS.play();
+									break;
+									case '3':
+										ctx.drawImage(rightDownImg, 0, 0);
+										ctx.drawImage(leftUpImg, 0, 0);
+
+										blueS.play();
+									break;
+									case '4':
+										ctx.drawImage(rightDownHardImg, 0, 0);
+										ctx.drawImage(leftUpImg, 0, 0);
+										ctx.drawImage(browImg, 0, 0);
+
+										blueHardS.play();
+									break;
+								}
+							}
+
+							latestNoteIndex += 1;
+							latestNote = mapItems[latestNoteIndex+1];
+						}
+					}
+				}
+
+				if(latestNoteIndex < mapItems.length-1){
+					frame = window.requestAnimationFrame(draw);
+				}else{
+					setTimeout(function(){
+						drawCat(true);
+						cat.classList.add('nofocus');
+						popupC.innerHTML = '<h1>all done<span>!</span><h1><h2>press the <span>x</span> to play another map<span>.</span></h2>';
+						showPopup();
+					}, 1000);
+				}
+			}
+
+			function showPopup(){
+				document.querySelector('.slide-popup').removeAttribute('style');
+				document.querySelector('.slide-popup').classList.add('active');
+				document.querySelector('.slide-main').classList.remove('active');
+			}
+
+			function escapeHtml(unsafe) {
+			    return unsafe
+			        .replace(/&/g, "&amp;")
+			        .replace(/</g, "&lt;")
+			        .replace(/>/g, "&gt;")
+			        .replace(/"/g, "&quot;")
+			        .replace(/'/g, "&#039;");
+			}
+
+			var file = document.querySelector('.map');
+			var output = document.querySelector('.output');
+			var loading = document.querySelector('.loading');
+			var cross = document.querySelector('.slide-popup .cross');
+			var popupC = document.querySelector('.slide-popup .content');
+			var pause = document.querySelector('.pause-btn');
+			var play = document.querySelector('.play-btn');
+
+			var mapName = false;
+			var availableMaps = {};
+
+			var audio = false;
+			var redS = new Howl({ src: ['sounds/red.wav'], volume: 0.3 });
+			var redHardS = new Howl({ src: ['sounds/red-hard.wav'], volume: 0.3 });
+			var blueS = new Howl({ src: ['sounds/blue.wav'], volume: 0.3 });
+			var blueHardS = new Howl({ src: ['sounds/blue-hard.wav'], volume: 0.3 });
+
+			var canvas = document.getElementById('cat');
+			var ctx = canvas.getContext('2d');
+
+			var catImg = new Image();
+			catImg.src = 'images/bg.png';
+			var browImg = new Image();
+			browImg.src = 'images/b1.png';
+			var mouthImg = new Image();
+			mouthImg.src = 'images/m1.png';
+			var rightUpImg = new Image();
+			rightUpImg.src = 'images/r1.png';
+			var rightDownImg = new Image();
+			rightDownImg.src = 'images/r2.png';
+			var rightDownHardImg = new Image();
+			rightDownHardImg.src = 'images/r3.png';
+			var leftUpImg = new Image();
+			leftUpImg.src = 'images/l1.png';
+			var leftDownImg = new Image();
+			leftDownImg.src = 'images/l2.png';
+			var leftDownHardImg = new Image();
+			leftDownHardImg.src = 'images/l3.png';
+
+			catImg.addEventListener('load', function(){
+				drawCat(true);
+			});
+
+			var startTime = timer = frame = false;
+
+			var difficultyInfo = {};
+			var mapItems = [];
+
+			var leadIn = false;
+
+			var latestNoteIndex = 0;
+			var latestNote = false;
+
+			var loadDone = false;
+
+			cross.addEventListener('click', function(e){
+				e.path[2].classList.remove('active');
+				document.querySelector('.slide-main').classList.add('active');
+				setTimeout(function(){
+					e.path[2].style.zIndex = '-1';
+				}, 500);
+			});
+
+			file.addEventListener('change', function(e){
+				if(file.files[0].name.indexOf('.osz') != -1){
+					loading.classList.add('active');
+
+					JSZip.loadAsync(file.files[0]).then(function(zip) {
+						if(audio){
+							if(audio.playing()){
+								audio.stop();
+							}
+						}
+
+						//Start by resetting everything
+						mapName = audio = leadIn = startTime = timer = frame = leadIn = latestNote = loadDone = false;
+						availableMaps = difficultyInfo = {};
+						mapItems = [];
+						latestNoteIndex = 0;
+
+						drawCat(true);
+
+						zip.forEach(function (p, f) {
+							if(f.name.indexOf('.osu') != -1){
+								f.async("string").then(function(c){
+									if(c.indexOf('Mode: 1') != -1){
+										hitObjects = c.split('[HitObjects]')[1].trim();
+
+										artistName = (c.indexOf('ArtistUnicode:') != -1 ? /ArtistUnicode:(.+)/.exec(c)[1].trim() : /Artist:(.+)/.exec(c)[1].trim());
+										songName = (c.indexOf('TitleUnicode:') != -1 ? /TitleUnicode:(.+)/.exec(c)[1].trim() : /Title:(.+)/.exec(c)[1].trim());
+										difficultyName = /Version:(.+)/.exec(c)[1].trim();
+										beatmapID = (c.indexOf('BeatmapID') != -1 ? /BeatmapID:(.+)/.exec(c)[1] : btoa(difficultyName));
+
+										availableMaps[beatmapID] = {name: difficultyName, lead: /AudioLeadIn: (.+)/.exec(c)[1].trim(), objects: hitObjects};
+									}
+			                	});
+							}
+
+							if(f.name.indexOf('.mp3') != -1){
+								f.async("blob").then(function(c){
+									audio = new Howl({ src: [URL.createObjectURL(c)], format: ['mp3'], volume: 0.3, onload: function(){ loadDone = true; } });
+								});
+							}
+			            });
+
+						setTimeout(function(){
+							loading.classList.remove('active');
+
+				            mapKeys = Object.keys(availableMaps);
+
+				            if(mapKeys.length != 0){
+
+					            popupC.innerHTML = '<h2>selected<span>:</span> ' + escapeHtml(artistName) + ' <span>-</span> ' + escapeHtml(songName) + '</h2>';
+					            popupC.innerHTML += '<h3>select difficulty<span>:</span></h3>';
+					            for(i=0;i<mapKeys.length;i++){
+						        	popupC.innerHTML += '<span class = "map-select" data-map-id = "' + mapKeys[i] + '">' + escapeHtml(availableMaps[mapKeys[i]]['name']) + '</li>';
+						        }
+
+					            showPopup();
+
+					            difficultiesList = document.querySelectorAll('[data-map-id]');
+
+					          	for(i=0;i<difficultiesList.length;i++){
+					          		difficultiesList[i].addEventListener('click', function(e){
+					          			e.path[2].classList.remove('active');
+					          			setTimeout(function(){
+											e.path[2].style.zIndex = '-1';
+										}, 500);
+										cat.classList.remove('nofocus');
+
+										loading.classList.add('active');
+
+					          			difficultyInfo = availableMaps[e.target.dataset.mapId];
+										difficultiesList = null;
+
+										leadIn = (difficultyInfo['lead'] > 2000 ? difficultyInfo['lead'] : 2000);
+										hitObjectsSplit = difficultyInfo['objects'].split("\n");
+
+				                		hitObjectsSplit.forEach(function(i){
+				                			splitI = i.trim().split(',');
+				                			colour = '';
+
+				                			//1 = red, 2 = red-hard, 3 = blue, 4 = blue-hard
+				                			switch(splitI[4]){
+				                				case '0':
+				                					colour = '1';
+				                				break;
+				                				case '2':
+				                					colour = '3';
+				                				break;
+				                				case '4':
+				                					colour = '2';
+				                				break;
+				                				case '6':
+				                					colour = '4';
+				                				break;
+				                				case '8':
+				                					colour = '3';
+				                				break;
+				                				case '12': 
+				                					colour = '4';
+				                				break;
+				                			}
+
+				                			mapItems.push([parseInt(splitI[2])+parseInt(leadIn), splitI[3], colour]);
+				                		});
+
+						            	frame = window.requestAnimationFrame(draw);
+						            });
+					          	}
+					        }else{
+					        	popupC.innerHTML = '<h1>oops<span>!</span></h1><h2>there are no playable taiko maps in that file<span>!</span></h2><h2>please try another<span>.</span></h2>';
+					        }
+				        }, 100);
+					});
+				}else{
+					popupC.innerHTML = '<h1>oops<span>!</span></h1><h2>please select a <span>.osz</span> file</h2>';
+					showPopup();
+				}
+			});
+		</script>
+	</body>
+</html>

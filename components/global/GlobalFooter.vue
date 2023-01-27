@@ -22,6 +22,7 @@ export default {
   color: var(--light-shadow);
 
   &__socialsHeader {
+    margin-bottom: 0.5rem;
     font-weight: 500;
   }
 

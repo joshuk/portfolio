@@ -1,6 +1,6 @@
 Taiko Cat is a dumb little web app I made over the course of a weekend in September 2018 that combines [Bongo Cat](https://knowyourmeme.com/memes/bongo-cat) and [osu!taiko](https://osu.ppy.sh/help/wiki/Game_Modes/osu%21taiko) maps.
 
-<h3><span>who with what?</span></h3>
+<h3 id="what"><span>who with what?</span></h3>
 
 Bongo Cat was a dumb little internet meme stemmed from [a series of tweets](https://twitter.com/DitzyFlama/status/993487015499853824) that went viral. Over the next couple of months this idea was picked up and used by [many different content creators](https://www.youtube.com/results?search_query=bongo+cat) resulting in millions of views.
 
@@ -14,7 +14,7 @@ The basic idea behind Taiko Cat was that users could give the website a song to 
 
 Fairly simple, right? Well, not exactly.
 
-<h3><span>the execution</span></h3>
+<h3 id="execution"><span>the execution</span></h3>
 
 I'd just like to preface this by saying that the general execution of this project is sloppy at best. While I still think it's pretty fun, under the surface it's anything but. 
 
@@ -26,7 +26,7 @@ However, it should be noted that the code was never intended to be built upon or
 
 Regardless, the first hurdle was being able to read and parse the song from osu!, so let's start there.
 
-<h3><span>reading a .osz file</span></h3>
+<h3 id="reading-an-osz-file"><span>reading a .osz file</span></h3>
 
 A .osz file is what the osu! website spits out when a user downloads a beatmap. Usually these are automatically opened by osu!, however that's not of much use to us right now.
 
@@ -35,7 +35,7 @@ The osu! website's documentation on the .osz filetype is [somewhat vague](https:
 This means that it can be read on the client-side using a library such as [JSZip](https://stuk.github.io/jszip/).
 
 <figure>
-    <img src="/assets/img/post/taikocat/example_beatmap_contents.png" alt="A screenshot of the contents of an example .osz file"/>
+    <img src="/images/taiko-cat/example_beatmap_contents.png" alt="A screenshot of the contents of an example .osz file"/>
     <figcaption>The basic contents of a .osz file</figcaption>
 </figure>
 
@@ -43,7 +43,7 @@ A .osz file basically contains everything about the beatmap. This includes thing
 
 A .osu file contains all information about a specific difficulty of a beatmap. The above example beatmap only contains one difficulty, however others may contain several (such as Easy, Normal, Hard and so on). These files are the ones that are actually interesting.
 
-<h3><span>parsing a .osu file</span></h3>
+<h3 id="parsing-an-osu-file"><span>parsing a .osu file</span></h3>
 
 Luckily for me, .osu files are stored in plain text (so no weird decompression or libraries are needed). Doubly lucky for me, .osu files have [fantastic documentation](https://osu.ppy.sh/help/wiki/osu!_File_Formats/Osu_(file_format)) on the osu! website. *Triply* lucky for me, I can ignore most of this information as I have no use for it.
 
@@ -57,7 +57,7 @@ And to make it *even* sweeter, all I need from the map's hit objects is the time
 
 So, without further ado, let's get into some code! *(Warning: Spaghetti ahead!)*
 
-{% highlight javascript %}
+```javascript
 zip.forEach(function (p, f) {
   if(f.name.indexOf('.osu') != -1){
     f.async("string").then(function(c){
@@ -73,7 +73,7 @@ zip.forEach(function (p, f) {
       }
     });
   }
-{% endhighlight %}
+```
 
 What this script basically does is:
 
@@ -87,21 +87,21 @@ What this script basically does is:
 
 If you're still somewhat confused, here's a run down of the most important parts:
 
-{% highlight javascript %}
+```javascript
 hitObjects = c.split('[HitObjects]')[1].trim();
-{% endhighlight %}
+```
 
 Since the hit objects of a difficulty are the last things in the file, to get them all I can just split the file at the *[HitObjects]* header and grab everything after it.
 
-{% highlight javascript %}
+```javascript
 artistName = (c.indexOf('ArtistUnicode:') != -1 ? /ArtistUnicode:(.+)/.exec(c)[1].trim() : /Artist:(.+)/.exec(c)[1].trim());
-{% endhighlight %}
+```
 
 osu! has two ways of storing both the artist name and song title, regular and Unicode. Unicode is used when the artist name or song title doesn't use the English character set (such as Japanese or Russian). This piece of code checks whether the Unicode artist name exists, and falls back to the regular romanized version if it doesn't.
 
-{% highlight javascript %}
+```javascript
 beatmapID = (c.indexOf('BeatmapID') != -1 ? /BeatmapID:(.+)/.exec(c)[1] : btoa(difficultyName));
-{% endhighlight %}
+```
 
 When storing information about each individual difficulty I would use the unique Beatmap ID that was present in the file. However, from my extremely limited testing I found that some beatmaps don't contain this ID. In the case that it doesn't, it uses the difficulty name encoded using Base64 instead.
 
@@ -111,7 +111,7 @@ Now we've got all that out the way, the next thing to do is to properly parse th
 
 Once the user selects the difficulty they'd like Taiko Cat to play, the following code runs:
 
-{% highlight javascript %}
+```javascript
 difficultyInfo = availableMaps[e.target.dataset.mapId];
 difficultiesList = null;
 
@@ -148,7 +148,7 @@ hitObjectsSplit.forEach(function(i){
 });
 
 frame = window.requestAnimationFrame(draw);
-{% endhighlight %}
+```
 
 To sum this up, it determines the lead-in time for the song (which is a minimum of 2000ms), then remaps the osu! hitsounds into the 4 main ones used by Taiko Cat (which we'll get into later). Finally, it pushes each hitobject into an array which will be read in in the draw function, which it then calls.
 
@@ -156,7 +156,7 @@ As a quick sidenote, I'm fully aware that the whole case switch section of the c
 
 Anyway, with all that out of the way we can actually get on to the fun parts. Let's start with sound.
 
-<h3><span>Web Audio vs howler</span></h3>
+<h3 id="web-audio-vs-howler"><span>Web Audio vs howler</span></h3>
 
 The two main choices I had was using the browser's built in [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API), or using a library such as [howler.js](https://howlerjs.com/).
 
@@ -166,7 +166,7 @@ However, looking back I think this was the right decision regardless. This is du
 
 Next up, visuals!
 
-<h3><span>You Wouldn't Steal a Cat</span></h3>
+<h3 id="guilty-confession"><span>You Wouldn't Steal a Cat</span></h3>
 
 Let me start by saying that, aside from small changes and adjustments, I made essentially none of the graphics used on Taiko Cat. I also gave no credit to the people who did make them at the time, which was a pretty lame thing for me to do.
 
@@ -175,7 +175,7 @@ The images of the cat were lifted from an [older version of bongo.cat](http://we
 Now that's out of the way, lets get on to how they all work. All of the images used for the cat are split up into different appendages:
 
 <figure>
-    <img src="/assets/img/post/taikocat/cat_split_images.png" alt="A screenshot of all the images that make up Taiko Cat"/>
+    <img src="/images/taiko-cat/cat_split_images.png" alt="A screenshot of all the images that make up Taiko Cat"/>
     <figcaption>All of the images that make up Taiko Cat. b indicating eyebrows or 'brows'. l indicating the left paw, r indicating the right. m indicates the mouth.</figcaption>
 </figure>
 
@@ -184,17 +184,17 @@ This is done partly to make drawing the frames for the cat easier due to modular
 These parts combined to make up 5 main frames. The first being the resting pose where the cat has both paws in the air, the second and third being the cat either hitting it's left or right paws on the drum, and the fourth and fifth being the hard versions of the previous two.
 
 <figure>
-    <img src="/assets/img/post/taikocat/cat_frames_comp.png" alt="An image of four of the five frames of animation Taiko Cat uses"/>
+    <img src="/images/taiko-cat/cat_frames_comp.png" alt="An image of four of the five frames of animation Taiko Cat uses"/>
     <figcaption>The four main frames of animation in Taiko Cat. The top two are regular hits, the bottom two being hard hits.</figcaption>
 </figure>
 
 Finally, now that we have all of the elements set up, the last thing to do is to put it all together.
 
-<h3><span>playing the drum</span></h3>
+<h3 id="playing-the-drum"><span>playing the drum</span></h3>
 
 There's not a whole lot to talk about here outside of the code its self, so let's just jump right into it. If you thought the code before was messy, get ready for this.
 
-{% highlight javascript %}
+```javascript
 function draw(cT){
   if(loadDone == true){
     if(loading.classList.contains('active')){
@@ -210,7 +210,7 @@ function draw(cT){
     if(latestNote == false){
       latestNote = mapItems[0];
     }
-{% endhighlight %}
+```
 
 The start of the draw function mainly just defines and checks a few things. It begins by checking whether or not everything has finished loading, removing the loading icon if it has.
 
@@ -222,7 +222,7 @@ The way that Taiko Cat works is it loads the latest note in memory and plays it 
 
 However, due to most systems being able to run a basic web app with fairly consistent frame times and the general non-seriousness of this app, I don't see this as a massive issue.
 
-{% highlight javascript %}
+```javascript
 if(timer > leadIn){
   if(!audio.playing()){
     audio.play();
@@ -277,7 +277,7 @@ if(timer > leadIn){
     latestNote = mapItems[latestNoteIndex+1];
   }
 }
-{% endhighlight %}
+```
 
 This is the meat of the whole app. It runs once the timer passes the lead-in time.
 
@@ -297,18 +297,15 @@ And that's about it.
 
 If you're interested in what this all looks like in action, here's a short demo of Taiko Cat playing [a song](https://www.youtube.com/watch?v=bAOpdNw5LHQ):
 
-<video class="lazy" data-src="/assets/img/post/taikocat/taikocat_demo.webm" controls></video>
-<noscript>
-    <video src="/assets/img/post/taikocat/taikocat_demo.webm" controls></video>
-</noscript>
+<video src="/images/taiko-cat/taikocat_demo.webm" loading="lazy" controls></video>
 
 <br>
 
-<h3><span>reflections</span></h3>
+<h3 id="reflections"><span>reflections</span></h3>
 
 Overall, despite how unpolished the app is, I'm happy with the way that Taiko Cat turned out. However, here are a few things that I would've done differently had I made it today:
 
-<h4>Split things up a bit</h4>
+<h4 id="split-up-code">Split things up a bit</h4>
 
 Right now, pretty much everything sits inside the index.html file. This includes all HTML, CSS and Javascript.
 
@@ -318,13 +315,13 @@ Not only this, but all of the JS is essentially in two big clumps. At the *bare 
 
 Ideally though it would have been better split everything up into separate files, using classes for each main part of the app.
 
-<h4>Test it</h4>
+<h4 id="test">Test it</h4>
 
 I finished Taiko Cat at something like 11:30pm on a Sunday night, and needed to get up for work the next morning. For this reason, I didn't test it at all outside of during development. As I'm sure you can guess, this didn't work out great.
 
 I'm pretty sure it still doesn't work on Firefox.
 
-<h4>Think about UX</h4>
+<h4 id="think-about-ux">Think about UX</h4>
 
 While Taiko Cat does what it's meant to, and the interface is fairly simple, it's actually a massive pain in the arse for it's target audience to use.
 
@@ -336,4 +333,4 @@ A way to improve this would have been to use a third party service to fetch and 
 
 <hr>
 
-If you're interested in giving Taiko Cat a go, you can visit it [here](/taikocat). Alternatively, you can view the [source code on Github](https://github.com/joshuk/taikocat).
+If you're interested in giving Taiko Cat a go, you can visit it [here](https://www.josh.ee/taikocat). Alternatively, you can view the [source code on Github](https://github.com/joshuk/taikocat).

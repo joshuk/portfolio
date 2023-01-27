@@ -2,9 +2,12 @@
   <GlobalHeader />
 
   <HomepageHero />
-  <HomepageAbout />
-  <HomepageWork />
-  <HomepageOther />
+
+  <main>
+    <HomepageAbout />
+    <HomepageWork />
+    <HomepageOther />
+  </main>
 
   <GlobalFooter />
 </template>

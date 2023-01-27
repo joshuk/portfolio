@@ -105,6 +105,8 @@ export default {
 
 @media screen and (max-width: 700px) {
   .globalHeader {
+    padding: 1.75rem 1.25rem;
+    
     &__nav {
       padding: 1.75rem 1.25rem;
     }

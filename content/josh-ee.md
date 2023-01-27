@@ -2,7 +2,7 @@ I created my portfolio website around June 2020 to house both my work as a devel
 
 It's built as a static [Jekyll](https://jekyllrb.com/) site and is hosted on [Netlify](https://www.netlify.com/), using [Forestry](https://forestry.io/) for content population.
 
-<h3><span>the design</span></h3>
+<h3 id="design"><span>the design</span></h3>
 
 I had a few main things in mind when I thought about how I wanted this site to look.
 
@@ -10,30 +10,30 @@ I had a few main things in mind when I thought about how I wanted this site to l
 * I wanted it to have a fairly basic colour scheme
 * I wanted it to have a big focus on typography
 
-<h4>Minimality</h4>
+<h4 id="design-minimality">Minimality</h4>
 
 My main motivation behind making the site minimal was that it was going to be holding text and not much else, so I didn't want to take much focus off of that with fancy layouts or flashy animations (at least not on the content pages).
 
 Another benefit of minimalism is that it makes it really easy to make tight. I like to think that this site is built pretty well and looks good on most devices and screen sizes, which was made much easier by not having a million moving parts.
 
-<h4>Colours</h4>
+<h4 id="design-colours">Colours</h4>
 
 The colour scheme was largely inspired by a website I worked on at a previous job (which never ended up seeing the light of day, so it's mine for the taking 😊).
 
 The original colour scheme I chose used two light colours, a main colour (pink), and two dark colours.
 
 <figure>  
-<img src="/assets/img/colours_original.png" alt="An image showing the original colour scheme of Josh.ee"/>  
+<img src="/images/josh-ee/colours_original.png" alt="An image showing the original colour scheme of Josh.ee"/>  
 <figcaption>The original colour scheme of Josh.ee</figcaption>  
 </figure>
 
 My original plan was to pick out the colours for both the default light theme and a dark theme from that palette. However, that idea ended up being a bit naff in practice, so I instead opted for two slightly different colour schemes for both light and dark.
 
-<figure><img src="/assets/img/colours_comp.png" alt="An image showing the two current of Josh.ee"/><figcaption>The (current) light and dark colour schemes of Josh.ee</figcaption></figure>
+<figure><img src="/images/josh-ee/colours_comp.png" alt="An image showing the two current of Josh.ee"/><figcaption>The (current) light and dark colour schemes of Josh.ee</figcaption></figure>
 
 This ended up working a lot better.
 
-<h4>Typography</h4>
+<h4 id="design-typography">Typography</h4>
 
 Since the main purpose of this site is to house text, I knew that I had to try to make the typography as nice as possible.
 
@@ -43,7 +43,7 @@ In order to make my longer articles of text easier to read, I decided to use a k
 
 In addition, while writing I would use line breaks and paragraphs fairly liberally, mainly to try and prevent huge walls of text that are impossible to read.
 
-<h3><span>the build</span></h3>
+<h3 id="build"><span>the build</span></h3>
 
 When I was first thinking about how to build this site I considered a few different options.
 
@@ -67,7 +67,7 @@ I forget how exactly I stumbled on static site generators, most likely through a
 
 _(Note to self: maybe don't wait a year before writing about what you made next time)_
 
-<h4>Actually building it</h4>
+<h4 id="build-build">Actually building it</h4>
 
 Since this site is so basic in terms of it's content, I could really focus in on trying to make the site as fast and lightweight as possible as well as supporting a few settings I perhaps wouldn't bother with normally.
 
@@ -87,11 +87,11 @@ Unfortunately I don't particularly like Internet Explorer, and so decided to emp
 
 The main place that this came in handy was with implementing the aforementioned colour schemes into the site. Due to not having to worry about compatibility, I could use [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) for all of the colours on the site. This made implementing a dark mode a walk in the park.
 
-<figure><img src="/assets/img/light_dark_home.png" alt="An image showing the header of the homepage of Josh.ee, with the light theme on the left and the dark theme on the right."/><figcaption>Josh.ee in both light and dark mode</figcaption></figure>
+<figure><img src="/images/josh-ee/light_dark_home.png" alt="An image showing the header of the homepage of Josh.ee, with the light theme on the left and the dark theme on the right."/><figcaption>Josh.ee in both light and dark mode</figcaption></figure>
 
 Speaking of which...
 
-<h3><span>dark mode</span></h3>
+<h3 id="dark-mode"><span>dark mode</span></h3>
 
 Since it's pretty much the only moving part of this site it'd probably be worth talking about how this works.
 
@@ -103,20 +103,19 @@ These names were defined with the light scheme in mind, as that was the colour s
 
 To switch the site to the dark scheme, I can then just swap around all the variables but the main colour. So _light-colour_ would switch from being the lightest colour to the darkest, _dark-colour_ would become the lightest and so on.
 
-This makes for some kinda funky reading if you look at Inspect Element while in dark mode, however it works well enough that I don't 
-really care.
+This makes for some kinda funky reading if you look at Inspect Element while in dark mode, however it works well enough that I don't really care.
 
-<figure><img src="/assets/img/inspect_element_colours.png" alt="An image showing the dark theme of the site in inspect element, with each variable being set to it's opposite colour."/><figcaption>Makes sense</figcaption></figure>
+<figure><img src="/images/josh-ee/inspect_element_colours.png" alt="An image showing the dark theme of the site in inspect element, with each variable being set to it's opposite colour."/><figcaption>Makes sense</figcaption></figure>
 
 Next was actually allowing the user to switch between the modes.
 
-<h4>Without Javascript</h4>
+<h4 id="dark-mode-without-js">Without Javascript</h4>
 
 When you load the site the &lt;body&gt; has the class _default_ applied to it. This class defines all the aforementioned variables as the light scheme at first, however this is overwritten with the dark scheme's colours if the _prefers-color-scheme_ media query is set to _dark_.
 
 This works pretty great in terms of it keeping the colour scheme that the user has set on their system, but makes it impossible (or at least a massive ball ache) to switch from one scheme to another.
 
-<h4>With Javascript</h4>
+<h4 id="dark-mode-js">With Javascript</h4>
 
 To try and fix this problem, I could make a quick little Javascript switch that would swap the current colour scheme and save it in the user's cookies.
 
@@ -128,7 +127,7 @@ Similarly, trying to add this logic in an external &lt;script&gt; tag would mean
 
 Luckily, there is a pretty simple solution for this. By placing this little bit of JS directly after the opening &lt;body&gt; tag:
 
-{% highlight javascript %}
+```javascript
 const cookies = decodeURIComponent(document.cookie);
 const index = cookies.indexOf('darkMode');
 
@@ -138,7 +137,7 @@ if(index !== -1){
 }else if(window.matchMedia('(prefers-color-scheme:dark)').matches){
   document.querySelector('body').classList.add('dark');
 }
-{% endhighlight %}
+```
 
 I can block the rendering of the page until the correct class is added to the body, and therefore the right colour scheme is rendered. Usually render blocking is [something that you would aim to avoid](https://web.dev/render-blocking-resources/), however in this situation it is exactly what I need.
 
@@ -152,7 +151,7 @@ Otherwise, it checks whether the user's device is already set to dark mode, then
 
 After this, all that's needed is a button that the user can click to switch between light and dark mode. The code for this is relatively simple, though there are a couple of small quirks to note:
 
-{% highlight javascript %}
+```javascript
 document.querySelector('.colour-scheme-switch').addEventListener('click', () => {
     let classes = ['light', 'dark'];
     let value = (1 - document.querySelectorAll('body.dark').length);
@@ -166,7 +165,7 @@ document.querySelector('.colour-scheme-switch').addEventListener('click', () => 
     document.querySelector('body').classList.remove(classes[1 - value]);
     document.querySelector('body').classList.add(classes[value]);
 });
-{% endhighlight %}
+```
 
 Firstly, the way that I determine the _darkMode_ cookie's value is more complicated than it looks.
 
@@ -176,9 +175,9 @@ Since the value of the cookie is binary (the site is either in dark mode or it i
 
 I then have to add then remove the _transition_ class on the body to allow for a smooth transition between colour schemes. This class only contains one CSS definition:
 
-{% highlight css %}
+```css
 body.transition { transition: background 0.5s, color 0.5s; }
-{% endhighlight %}
+```
 
 Which was originally added onto the body by default. However, I guess due to the different rendering engine treating the render blocking Javascript differently, this would cause the page to flash each time it loaded on Firefox.
 
@@ -188,7 +187,7 @@ Instead, adding this style to it's own class and then adding/removing said class
 
 Finally, I just add/remove the applicable classes to change the site's colour theme and hey presto the colour scheme has been swapped.
 
-<h3><span>the future</span></h3>
+<h3 id="the-future"><span>the future</span></h3>
 
 This site is something that I always plan to keep iterating on as time goes on (so any part of this article may be incorrect/invalid at the time that you're reading it).
 
