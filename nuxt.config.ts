@@ -22,9 +22,9 @@ export default defineNuxtConfig({
       script: [
         {
           innerHTML: `
-            const documentElement = document.documentElement
-
-            documentElement.classList.add('light')
+            if (localStorage.theme) {
+              document.documentElement.classList.add(localStorage.theme)
+            }
           `
         }
       ],

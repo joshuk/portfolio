@@ -1,16 +1,36 @@
 <template>
   <div class="globalSocials">
-    <a href="https://www.instagram.com/jo.sh.ee/" target="blank" rel="noreferrer noopener">
-      <BaseInstagramIcon class="globalSocials__icon globalSocials__icon--instagram" />
+    <a
+      href="https://www.instagram.com/jo.sh.ee/"
+      class="globalSocials__icon globalSocials__icon--instagram"
+      target="blank"
+      rel="noreferrer noopener"
+      aria-label="Visit my Instagram">
+      <BaseInstagramIcon />
     </a>
-    <a href="https://github.com/joshuk" target="blank" rel="noreferrer noopener">
-      <IconGithub class="globalSocials__icon globalSocials__icon--github" />
+    <a
+      href="https://github.com/joshuk"
+      class="globalSocials__icon globalSocials__icon--github"
+      target="blank"
+      rel="noreferrer noopener"
+      aria-label="Visit my Github">
+      <IconGithub />
     </a>
-    <a href="https://gitlab.com/joshuk" target="blank" rel="noreferrer noopener">
-      <IconGitlab class="globalSocials__icon globalSocials__icon--gitlab" />
+    <a
+      href="https://gitlab.com/joshuk"
+      class="globalSocials__icon globalSocials__icon--gitlab"
+      target="blank"
+      rel="noreferrer noopener"
+      aria-label="Visit my Gitlab">
+      <IconGitlab />
     </a>
-    <a href="https://codepen.io/joshuk" target="blank" rel="noreferrer noopener">
-      <IconCodepen class="globalSocials__icon globalSocials__icon--codepen" />
+    <a
+      href="https://codepen.io/joshuk"
+      class="globalSocials__icon globalSocials__icon--codepen"
+      target="blank"
+      rel="noreferrer noopener"
+      aria-label="Visit my Codepen">
+      <IconCodepen />
     </a>
   </div>  
 </template>
@@ -32,13 +52,24 @@ export default {
 
 <style lang="scss">
 .globalSocials {
-  &__icon {
-    width: 32px;
-    margin-right: 12px;
-    fill: var(--light-shadow);
-    transition: fill 0.5s;
+  display: flex;
 
-    &--github:hover {
+  &__icon {
+    display: flex;
+
+    &:not(:last-child) {
+      margin-right: 12px;
+    }
+
+    svg {
+      width: 32px;
+      height: 32px;
+      fill: var(--light-shadow);
+      transition: fill 0.5s;
+    }
+
+    &--github:hover svg,
+    &--github:focus svg {
       fill: var(--github-colour);
     }
 
@@ -47,12 +78,13 @@ export default {
         transition: fill 0.5s;
       }
 
-      &:not(:hover) path {
+      &:not(:hover, :focus) path {
         fill: var(--light-shadow);
       }
     }
 
-    &--codepen:hover {
+    &--codepen:hover svg,
+    &--codepen:focus svg {
       fill: var(--codepen-colour);
     }
   }

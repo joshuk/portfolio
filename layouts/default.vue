@@ -58,6 +58,10 @@ html {
     @include darkModeColours();
   }
 
+  &.isSwitchingThemes {
+    transition: background-color 0.5s, color 0.5s;
+  }
+
   @media (prefers-color-scheme: dark) {
     &.default:not(.light, .dark) {
       @include darkModeColours();

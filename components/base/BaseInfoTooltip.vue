@@ -51,6 +51,10 @@ export default {
 
   &.active,
   &:hover {
+    .baseInfoTooltip__label:after {
+      opacity: 1;
+    }
+
     .baseInfoTooltip__tooltip {
       opacity: 1;
     }
@@ -67,6 +71,8 @@ export default {
       left: 0;
       width: 100%;
       border-bottom: 2px dashed var(--main-colour);
+      opacity: 0.75;
+      transition: opacity 0.2s;
       z-index: -1;
     }
   }

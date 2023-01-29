@@ -41,7 +41,7 @@ export default {
     transition: stop-color 0.5s;
   }
 
-  &:not(:hover) stop {
+  a:not(:hover, :focus) & stop {
     stop-color: var(--light-shadow);
   }
 }

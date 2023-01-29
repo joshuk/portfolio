@@ -90,7 +90,7 @@ export default {
     }
 
     &:last-child {
-      margin: 0;
+      margin-bottom: 0;
     }
 
     > div {

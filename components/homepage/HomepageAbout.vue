@@ -7,19 +7,26 @@
       My name's Josh, I'm a 23 year old web developer
       from&nbsp;<BaseInfoTooltip ariaId="locationTooltip" tabindex="0">
         <template #label>Manchester, UK</template>
-        <template #tooltip>i'm actually from bolton, shhh 🤫</template>
+        <template #tooltip>i'm actually from bolton but shh 🤫</template>
       </BaseInfoTooltip>
       🐝
     </p>
-    <p>I've been programming for over 10 years, the last 5 of those working full time as a web developer.</p>
+    <p>
+      I've been programming for over 10 years, the
+      <BaseInfoTooltip ariaId="workTimeTooltip" tabindex="0">
+        <template #label>last 5 of those</template>
+        <template #tooltip>october 2017 - present</template>
+      </BaseInfoTooltip>
+      working full time as a web developer.
+    </p>
     <p>
       I've got
       <BaseInfoTooltip ariaId="experienceTooltip" tabindex="0">
         <template #label>tons of experience</template>
-        <template #tooltip>2013 - present</template>
+        <template #tooltip>july 2014 - present</template>
       </BaseInfoTooltip>
       with HTML, CSS, PHP and Javascript
-      (inc. jQuery, Vue and Node),
+      (inc. jQuery, Vue and Node)
       and I'm always up for a new challenge!</p>
     <p>
       Outside of that you can usually find me
@@ -53,10 +60,6 @@ export default {
   &__socialsHeader {
     margin: 1.75rem 0 0.5rem;
     color: var(--light-shadow);
-  }
-
-  &__socials {
-    // margin-top: 1.75rem;
   }
 }
 </style>

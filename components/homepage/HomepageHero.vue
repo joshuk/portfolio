@@ -18,7 +18,7 @@
       </div>
       
       <p class="homepageHero__title">I make websites and stuff</p>
-      <p class="homepageHero__subtitle">Web Developer based in Manchester 🇬🇧</p>
+      <p class="homepageHero__subtitle">Web Developer based in Manchester&nbsp;🇬🇧</p>
     </div>
 
     <a href="#about" class="homepageHero__scrollToContent" title="Scroll to content"></a>

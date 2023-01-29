@@ -7,7 +7,7 @@
       <a href="/#work" class="globalHeader__navLink">work</a>
       <a href="/#other" class="globalHeader__navLink">other</a>
 
-      <button class="globalHeader__toggleDarkMode">
+      <button class="globalHeader__toggleDarkMode" @click="switchColourScheme">
         <IconDarkMode />
       </button>
     </nav>
@@ -21,6 +21,32 @@ export default {
   name: 'GlobalHeader',
   components: {
     IconDarkMode
+  },
+  methods: {
+    switchColourScheme() {
+      let currentColourScheme = localStorage.theme
+
+      // If there isn't a theme set, figure it out from the user's preferred colour scheme
+      if (!currentColourScheme) {
+        currentColourScheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+      }
+
+      // Set the new colour scheme to the opposite of that
+      const newColourScheme = currentColourScheme === 'dark' ? 'light' : 'dark'
+
+      // Now update the classes on the HTML element, along with localStorage
+      document.documentElement.classList.add('isSwitchingThemes')
+
+      document.documentElement.classList.remove(currentColourScheme)
+      document.documentElement.classList.add(newColourScheme)
+
+      localStorage.theme = newColourScheme
+
+      // Then just remove the transition class once everything's finished
+      setTimeout(() => {
+        document.documentElement.classList.remove('isSwitchingThemes')
+      }, 500)
+    }
   }
 }
 </script>
