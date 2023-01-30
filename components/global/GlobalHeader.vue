@@ -1,11 +1,11 @@
 <template>
   <header class="globalHeader">
-    <a v-if="$route.name !== 'index'" href="/" class="globalHeader__logo">JOSH</a>
+    <NuxtLink href="/" class="globalHeader__logo" :class="{ 'globalHeader__logo--hidden': $route.name === 'index' }">JOSH</NuxtLink>
 
     <nav class="globalHeader__nav">
-      <a href="/#about" class="globalHeader__navLink">about</a>
-      <a href="/#work" class="globalHeader__navLink">work</a>
-      <a href="/#other" class="globalHeader__navLink">other</a>
+      <NuxtLink href="/#about" class="globalHeader__navLink">about</NuxtLink>
+      <NuxtLink href="/#work" class="globalHeader__navLink">work</NuxtLink>
+      <NuxtLink href="/#other" class="globalHeader__navLink">other</NuxtLink>
 
       <button class="globalHeader__toggleDarkMode" @click="switchColourScheme">
         <IconDarkMode />
@@ -67,6 +67,10 @@ export default {
     font-weight: 800;
     text-decoration: none;
     z-index: 1000;
+
+    &--hidden {
+      opacity: 0;
+    }
   }
 
   &__nav {
@@ -77,11 +81,11 @@ export default {
     width: 100%;
     padding: 2rem 2.5rem;
     align-items: center;
-    animation: fade-in 1s;
-    animation-delay: 2s;
-    animation-fill-mode: forwards;
+    // animation: fade-in 1s;
+    // animation-delay: 2s;
+    // animation-fill-mode: forwards;
     justify-content: flex-end;
-    opacity: 0;
+    // opacity: 0;
     z-index: 999;
   }
 

@@ -1,3 +1,8 @@
+---
+navigation:
+  title: 'Home'
+---
+
 I created my portfolio website around June 2020 to house both my work as a developer as well as any other little things that I wanted to show off or talk about.
 
 It's built as a static [Jekyll](https://jekyllrb.com/) site and is hosted on [Netlify](https://www.netlify.com/), using [Forestry](https://forestry.io/) for content population.

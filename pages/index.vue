@@ -1,15 +1,44 @@
+<script setup>
+  import anime from 'animejs/lib/anime.es.js'
+
+  definePageMeta({
+    pageTransition: {
+      name: 'indexPage',
+      mode: 'out-in',
+      onLeave: async (el, done) => {
+        document.documentElement.style.scrollBehavior = 'unset'
+        
+        const animation = anime({
+          targets: el,
+          // translateY: 24,
+          opacity: 0,
+          duration: 300,
+          endDelay: 250,
+          easing: 'easeInOutQuad'
+        })
+
+        await animation.finished
+
+        done()
+      }
+    }
+  })
+</script>
+
 <template>
-  <GlobalHeader />
+  <div class="indexPage">
+    <GlobalHeader />
 
-  <HomepageHero />
+    <HomepageHero />
 
-  <main>
-    <HomepageAbout />
-    <HomepageWork />
-    <HomepageOther />
-  </main>
+    <main>
+      <HomepageAbout />
+      <HomepageWork />
+      <HomepageOther />
+    </main>
 
-  <GlobalFooter />
+    <GlobalFooter />
+  </div>
 </template>
 
 <script>
@@ -19,5 +48,7 @@ export default {
 </script>
 
 <style lang="scss">
-
+.indexPage {
+  height: 100%;
+}
 </style>
