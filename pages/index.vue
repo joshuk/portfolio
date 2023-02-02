@@ -5,12 +5,26 @@
     pageTransition: {
       name: 'indexPage',
       mode: 'out-in',
+      onEnter: async (el, done) => {
+        const mainContent = el.querySelector('main')
+
+        const animation = anime({
+          targets: mainContent,
+          opacity: [0, 1],
+          duration: 500,
+          endDelay: 250,
+          easing: 'easeInOutQuad'
+        })
+
+        await animation.finished
+
+        done()
+      },
       onLeave: async (el, done) => {
         document.documentElement.style.scrollBehavior = 'unset'
         
         const animation = anime({
           targets: el,
-          // translateY: 24,
           opacity: 0,
           duration: 300,
           endDelay: 250,

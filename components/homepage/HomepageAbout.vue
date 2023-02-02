@@ -23,7 +23,7 @@
       I've got
       <BaseInfoTooltip ariaId="experienceTooltip" tabindex="0">
         <template #label>tons of experience</template>
-        <template #tooltip>july 2014 - present</template>
+        <template #tooltip>march 2014 - present</template>
       </BaseInfoTooltip>
       with HTML, CSS, PHP and Javascript
       (inc. jQuery, Vue and Node)
