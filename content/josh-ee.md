@@ -1,11 +1,6 @@
----
-navigation:
-  title: 'Home'
----
-
 I created my portfolio website around June 2020 to house both my work as a developer as well as any other little things that I wanted to show off or talk about.
 
-It's built as a static [Jekyll](https://jekyllrb.com/) site and is hosted on [Netlify](https://www.netlify.com/), using [Forestry](https://forestry.io/) for content population.
+It's built as a static [Jekyll](https://jekyllrb.com/){:target="_blank"} site and is hosted on [Netlify](https://www.netlify.com/){:target="_blank"}, using [Forestry](https://forestry.io/){:target="_blank"} for content population.
 
 <h3 id="design"><span>the design</span></h3>
 
@@ -42,7 +37,7 @@ This ended up working a lot better.
 
 Since the main purpose of this site is to house text, I knew that I had to try to make the typography as nice as possible.
 
-I started with finding a clean, readable font that I liked the look of (and was free, of course). This ended up being [Raleway](https://fonts.google.com/specimen/Raleway).
+I started with finding a clean, readable font that I liked the look of (and was free, of course). This ended up being [Raleway](https://fonts.google.com/specimen/Raleway){:target="_blank"}.
 
 In order to make my longer articles of text easier to read, I decided to use a kinda large font size, increase the line-height to stop everything being squished together, and limit the width of the actual article so that it didn't span the whole page.
 
@@ -52,13 +47,13 @@ In addition, while writing I would use line breaks and paragraphs fairly liberal
 
 When I was first thinking about how to build this site I considered a few different options.
 
-Originally I was going to build it as a regular PHP site using a CMS like [Wordpress](https://wordpress.com/) or [CraftCMS](https://craftcms.com/), since I had a fair bit of experience building these kinds of things before.
+Originally I was going to build it as a regular PHP site using a CMS like [Wordpress](https://wordpress.com/){:target="_blank"} or [CraftCMS](https://craftcms.com/){:target="_blank"}, since I had a fair bit of experience building these kinds of things before.
 
 However, not only would this mean I'd have to set up back end hosting which I couldn't be bothered doing, but I kinda wanted to try something new. So I canned that idea.
 
 <br>
 
-Next up I considered trying to use one of those fancy JS libraries like [React](https://reactjs.org/) or [Vue](https://vuejs.org/), since I'd never really touched one before and they were all the rage.
+Next up I considered trying to use one of those fancy JS libraries like [React](https://reactjs.org/){:target="_blank"} or [Vue](https://vuejs.org/){:target="_blank"}, since I'd never really touched one before and they were all the rage.
 
 Though after a bit of research I realised that I'd not only have to set up a back end for these libraries to query, but _then_ actually write an API handler to get the information and display it. This sounded like entirely too much work.
 
@@ -68,7 +63,7 @@ Not only that, but importing a JS library (and subsequently forcing uses to have
 
 I finally landed on using a static site generator, since it didn't require me to set up a back end and spat out plain ol' static HTML files (which meant I could also host it for free 🤑).
 
-I forget how exactly I stumbled on static site generators, most likely through a post/comment on the [webdev subreddit](https://old.reddit.com/r/webdev/). I also don't remember why I chose to use [Jekyll](https://jekyllrb.com/) over others, though in retrospect I would probably use something like [Hugo](https://gohugo.io/) or [11ty](https://www.11ty.dev/) just for faster builds.
+I forget how exactly I stumbled on static site generators, most likely through a post/comment on the [webdev subreddit](https://old.reddit.com/r/webdev/){:target="_blank"}. I also don't remember why I chose to use [Jekyll](https://jekyllrb.com/){:target="_blank"} over others, though in retrospect I would probably use something like [Hugo](https://gohugo.io/){:target="_blank"} or [11ty](https://www.11ty.dev/){:target="_blank"} just for faster builds.
 
 _(Note to self: maybe don't wait a year before writing about what you made next time)_
 
@@ -90,7 +85,7 @@ At the time of building this site I had been developing sites for the NHS for a 
 
 Unfortunately I don't particularly like Internet Explorer, and so decided to employ some wishful thinking and essentially forget it existed when building this site.
 
-The main place that this came in handy was with implementing the aforementioned colour schemes into the site. Due to not having to worry about compatibility, I could use [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) for all of the colours on the site. This made implementing a dark mode a walk in the park.
+The main place that this came in handy was with implementing the aforementioned colour schemes into the site. Due to not having to worry about compatibility, I could use [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties){:target="_blank"} for all of the colours on the site. This made implementing a dark mode a walk in the park.
 
 <figure><img src="/images/josh-ee/light_dark_home.png" alt="An image showing the header of the homepage of Josh.ee, with the light theme on the left and the dark theme on the right."/><figcaption>Josh.ee in both light and dark mode</figcaption></figure>
 
@@ -144,7 +139,7 @@ if(index !== -1){
 }
 ```
 
-I can block the rendering of the page until the correct class is added to the body, and therefore the right colour scheme is rendered. Usually render blocking is [something that you would aim to avoid](https://web.dev/render-blocking-resources/), however in this situation it is exactly what I need.
+I can block the rendering of the page until the correct class is added to the body, and therefore the right colour scheme is rendered. Usually render blocking is [something that you would aim to avoid](https://web.dev/render-blocking-resources/){:target="_blank"}, however in this situation it is exactly what I need.
 
 <br>
 
@@ -198,4 +193,4 @@ This site is something that I always plan to keep iterating on as time goes on (
 
 However, as of this article being written (July 2021, only over a year since I actually made the site 🤦‍♂️) everything here is near enough correct.
 
-Thanks for reading.
+If you'd like to see the source code of this site, you can find it [on Github](https://github.com/joshuk/joshee-jekyll){:target="_blank"}.

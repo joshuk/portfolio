@@ -1,4 +1,11 @@
 {
+  "artist-microsite": {
+    "title": "Artist Microsite",
+    "date": "July 2021",
+    "description": "An unused microsite built to showcase an art gallery's venture into NFTs",
+    "image": "/images/artist-microsite/cover.jpg",
+    "isPublished": true
+  },
   "josh-ee": {
     "title": "Josh.ee",
     "date": "April 2020",

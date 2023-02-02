@@ -12,7 +12,7 @@
           <div class="homepageOther__itemDescription">
             <h3 class="homepageOther__itemTitle"><span>{{ post.title }}</span>{{ !post.isPublished ? ' 🫥' : '' }}</h3>
             <p class="homepageOther__itemExcerpt">{{ post.description }}</p>
-            <p class="homepageOther__itemCreation">Created in {{ post.date }}</p>
+            <p v-if="post.subtitle" class="homepageOther__itemCreation">{{ post.subtitle }}</p>
             <NuxtLink :to="`/${key}`" class="homepageOther__itemLink">read about {{ post.title.toLowerCase() }}</NuxtLink>
           </div>
         </div>

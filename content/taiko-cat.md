@@ -1,12 +1,12 @@
-Taiko Cat is a dumb little web app I made over the course of a weekend in September 2018 that combines [Bongo Cat](https://knowyourmeme.com/memes/bongo-cat) and [osu!taiko](https://osu.ppy.sh/help/wiki/Game_Modes/osu%21taiko) maps.
+Taiko Cat is a dumb little web app I made over the course of a weekend in September 2018 that combines [Bongo Cat](https://knowyourmeme.com/memes/bongo-cat){:target="_blank"} and [osu!taiko](https://osu.ppy.sh/help/wiki/Game_Modes/osu%21taiko){:target="_blank"} maps.
 
 <h3 id="what"><span>who with what?</span></h3>
 
-Bongo Cat was a dumb little internet meme stemmed from [a series of tweets](https://twitter.com/DitzyFlama/status/993487015499853824) that went viral. Over the next couple of months this idea was picked up and used by [many different content creators](https://www.youtube.com/results?search_query=bongo+cat) resulting in millions of views.
+Bongo Cat was a dumb little internet meme stemmed from [a series of tweets](https://twitter.com/DitzyFlama/status/993487015499853824){:target="_blank"} that went viral. Over the next couple of months this idea was picked up and used by [many different content creators](https://www.youtube.com/results?search_query=bongo+cat){:target="_blank"} resulting in millions of views.
 
-One such place where it was picked up was within the osu! community, where someone went as far as [to build a pseudo-webcam featuring Bongo Cat](https://www.reddit.com/r/osugame/comments/9gah62/i_made_a_bongo_cat_cam_for_osu_that_works_in_real/) (which admittedly inspired me to create this). Speaking of which...
+One such place where it was picked up was within the osu! community, where someone went as far as [to build a pseudo-webcam featuring Bongo Cat](https://www.reddit.com/r/osugame/comments/9gah62/i_made_a_bongo_cat_cam_for_osu_that_works_in_real/){:target="_blank"} (which admittedly inspired me to create this). Speaking of which...
 
-[osu!](https://osu.ppy.sh) is a PC game which includes several gamemodes based on already popular rhythm games alongside community created content. One such gamemode is [osu!taiko](https://osu.ppy.sh/help/wiki/Game_Modes/osu%21taiko) (or taiko for short) and is based on the [Taiko no Tatsujin](https://en.wikipedia.org/wiki/Taiko_no_Tatsujin) game series.
+[osu!](https://osu.ppy.sh) is a PC game which includes several gamemodes based on already popular rhythm games alongside community created content. One such gamemode is [osu!taiko](https://osu.ppy.sh/help/wiki/Game_Modes/osu%21taiko){:target="_blank"} (or taiko for short) and is based on the [Taiko no Tatsujin](https://en.wikipedia.org/wiki/Taiko_no_Tatsujin){:target="_blank"} game series.
 
 <br>
 
@@ -30,9 +30,9 @@ Regardless, the first hurdle was being able to read and parse the song from osu!
 
 A .osz file is what the osu! website spits out when a user downloads a beatmap. Usually these are automatically opened by osu!, however that's not of much use to us right now.
 
-The osu! website's documentation on the .osz filetype is [somewhat vague](https://osu.ppy.sh/help/wiki/osu!_File_Formats/Osz_(file_format)), however it's noted elsewhere that it's just a .zip file with a different file extension.
+The osu! website's documentation on the .osz filetype is [somewhat vague](https://osu.ppy.sh/help/wiki/osu!_File_Formats/Osz_(file_format)){:target="_blank"}, however it's noted elsewhere that it's just a .zip file with a different file extension.
 
-This means that it can be read on the client-side using a library such as [JSZip](https://stuk.github.io/jszip/).
+This means that it can be read on the client-side using a library such as [JSZip](https://stuk.github.io/jszip/){:target="_blank"}.
 
 <figure>
     <img src="/images/taiko-cat/example_beatmap_contents.png" alt="A screenshot of the contents of an example .osz file"/>
@@ -45,7 +45,7 @@ A .osu file contains all information about a specific difficulty of a beatmap. T
 
 <h3 id="parsing-an-osu-file"><span>parsing a .osu file</span></h3>
 
-Luckily for me, .osu files are stored in plain text (so no weird decompression or libraries are needed). Doubly lucky for me, .osu files have [fantastic documentation](https://osu.ppy.sh/help/wiki/osu!_File_Formats/Osu_(file_format)) on the osu! website. *Triply* lucky for me, I can ignore most of this information as I have no use for it.
+Luckily for me, .osu files are stored in plain text (so no weird decompression or libraries are needed). Doubly lucky for me, .osu files have [fantastic documentation](https://osu.ppy.sh/help/wiki/osu!_File_Formats/Osu_(file_format)){:target="_blank"} on the osu! website. *Triply* lucky for me, I can ignore most of this information as I have no use for it.
 
 The only information that Taiko Cat needs to work is:
 
@@ -152,13 +152,13 @@ frame = window.requestAnimationFrame(draw);
 
 To sum this up, it determines the lead-in time for the song (which is a minimum of 2000ms), then remaps the osu! hitsounds into the 4 main ones used by Taiko Cat (which we'll get into later). Finally, it pushes each hitobject into an array which will be read in in the draw function, which it then calls.
 
-As a quick sidenote, I'm fully aware that the whole case switch section of the code is essentially the antithesis of ["Good Taste"](https://medium.com/@bartobri/applying-the-linus-tarvolds-good-taste-coding-requirement-99749f37684a). However, since there's not really any obvious link between the numbers it's the best way I could see to do it at the time.
+As a quick sidenote, I'm fully aware that the whole case switch section of the code is essentially the antithesis of ["Good Taste"](https://medium.com/@bartobri/applying-the-linus-tarvolds-good-taste-coding-requirement-99749f37684a){:target="_blank"}. However, since there's not really any obvious link between the numbers it's the best way I could see to do it at the time.
 
 Anyway, with all that out of the way we can actually get on to the fun parts. Let's start with sound.
 
 <h3 id="web-audio-vs-howler"><span>Web Audio vs howler</span></h3>
 
-The two main choices I had was using the browser's built in [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API), or using a library such as [howler.js](https://howlerjs.com/).
+The two main choices I had was using the browser's built in [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API){:target="_blank"}, or using a library such as [howler.js](https://howlerjs.com/){:target="_blank"}.
 
 I originally built Taiko Cat to use the Web Audio API to play all it's sounds, however later switched to using howler.js. At the time my reasoning for this was due to a playback issue that I misattributed to the Web Audio API, when in fact it was more likely an issue with my code. *(oops)*
 
@@ -170,7 +170,7 @@ Next up, visuals!
 
 Let me start by saying that, aside from small changes and adjustments, I made essentially none of the graphics used on Taiko Cat. I also gave no credit to the people who did make them at the time, which was a pretty lame thing for me to do.
 
-The images of the cat were lifted from an [older version of bongo.cat](http://web.archive.org/web/20180916092432/https://bongo.cat/). The image of the drum was from deep in Google Images (so deep that I can't even find the specific image anymore).
+The images of the cat were lifted from an [older version of bongo.cat](http://web.archive.org/web/20180916092432/https://bongo.cat/){:target="_blank"}. The image of the drum was from deep in Google Images (so deep that I can't even find the specific image anymore).
 
 Now that's out of the way, lets get on to how they all work. All of the images used for the cat are split up into different appendages:
 
@@ -295,7 +295,7 @@ Finally, it replaces the current note with the next one of the map.
 
 And that's about it.
 
-If you're interested in what this all looks like in action, here's a short demo of Taiko Cat playing [a song](https://www.youtube.com/watch?v=bAOpdNw5LHQ):
+If you're interested in what this all looks like in action, here's a short demo of Taiko Cat playing [a song](https://www.youtube.com/watch?v=bAOpdNw5LHQ){:target="_blank"}:
 
 <video src="/images/taiko-cat/taikocat_demo.webm" loading="lazy" controls></video>
 
@@ -333,4 +333,4 @@ A way to improve this would have been to use a third party service to fetch and 
 
 <hr>
 
-If you're interested in giving Taiko Cat a go, you can visit it [here](https://www.josh.ee/taikocat). Alternatively, you can view the [source code on Github](https://github.com/joshuk/taikocat).
+If you're interested in giving Taiko Cat a go, you can visit it [here](https://www.josh.ee/taikocat){:target="_blank"}. Alternatively, you can view the [source code on Github](https://github.com/joshuk/taikocat){:target="_blank"}.

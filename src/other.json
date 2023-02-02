@@ -1,7 +1,15 @@
 {
+  "moving-to-nuxt": {
+    "title": "Moving to Nuxt",
+    "subtitle": "Written in January 2023",
+    "description": "A quick update about switching this site from Jekyll to Nuxt 3",
+    "image_small": "/images/moving-to-nuxt/cover_sm.jpg",
+    "image_large": "/images/taiko-cat/taikocat_lg.png",
+    "isPublished": false
+  },
   "taiko-cat": {
     "title": "Taiko Cat",
-    "date": "October 2018",
+    "subtitle": "Created in October 2018",
     "description": "A fun (but messy) web app I made over a weekend to cash in on a joke",
     "image_small": "/images/taiko-cat/taikocat_sm.png",
     "image_large": "/images/taiko-cat/taikocat_lg.png",
