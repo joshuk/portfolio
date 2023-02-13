@@ -4,8 +4,8 @@
     "subtitle": "Written in January 2023",
     "description": "A quick update about switching this site from Jekyll to Nuxt 3",
     "image_small": "/images/moving-to-nuxt/cover_sm.jpg",
-    "image_large": "/images/taiko-cat/taikocat_lg.png",
-    "isPublished": false
+    "image_large": "/images/moving-to-nuxt/cover_lg.jpg",
+    "isPublished": true
   },
   "taiko-cat": {
     "title": "Taiko Cat",

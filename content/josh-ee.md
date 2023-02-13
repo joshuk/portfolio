@@ -1,3 +1,11 @@
+<h3 id="disclaimer"><span>disclaimer</span></h3>
+
+This article is partially out of date, and the site has been remade using Nuxt rather than Jekyll.
+
+If you'd like to read more, check out [Moving to Nuxt](https://www.josh.ee/moving-to-nuxt){:target="_blank"}.
+
+<hr>
+
 I created my portfolio website around June 2020 to house both my work as a developer as well as any other little things that I wanted to show off or talk about.
 
 It's built as a static [Jekyll](https://jekyllrb.com/){:target="_blank"} site and is hosted on [Netlify](https://www.netlify.com/){:target="_blank"}, using [Forestry](https://forestry.io/){:target="_blank"} for content population.

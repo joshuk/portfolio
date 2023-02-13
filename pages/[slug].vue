@@ -33,11 +33,27 @@
     pageTransition: {
       name: 'index-transition',
       mode: 'out-in',
+      appear: true,
       onEnter: async (el, done) => {
         const header = el.querySelector('.globalHeader')
         const articleImage = el.querySelector('.articleHero__image')
         const articleHeaders = el.querySelectorAll('.articleHero__content > *')
-        const articleContentItems = el.querySelectorAll('.articleContent > div > *:nth-child(-n+10)')
+
+        const articleContentItems = el.querySelectorAll('.articleContent > div > *:not(br)')
+
+        // Let's detect which one of these are actually visible, so we can just animate those in
+        const visibleContentItems = []
+
+        Array.from(articleContentItems).forEach((element) => {
+          if (element.offsetTop < window.innerHeight) {
+            visibleContentItems.push(element)
+
+            return
+          }
+
+          element.classList.add('invisible')
+          element.style.opacity = 0
+        })
 
         const tl = anime.timeline()
 
@@ -65,7 +81,7 @@
         }, '-=350')
 
         tl.add({
-          targets: articleContentItems,
+          targets: visibleContentItems,
           opacity: [0, 1],
           translateX: [24, 0],
           duration: 500,

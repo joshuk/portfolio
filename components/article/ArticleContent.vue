@@ -5,8 +5,71 @@
 </template>
 
 <script>
+import throttle from 'lodash.throttle'
+import anime from 'animejs/lib/anime.es.js'
+
 export default {
-  name: 'ArticleContent'
+  name: 'ArticleContent',
+  mounted() {
+    let functionDelay = 0
+
+    // This may seem a bit strange, but promise there's method in the madness.
+    // If the page is transitioning in, this component is mounted but not actually rendered.
+    // This means that none of the code below really works and it just fucks everything up.
+    // Since there's no way to detect when this component is RENDERED that I can find, we
+    // can detect whether it is using this. If this returns > 0, it's actually rendered
+    // on the page and we don't need to delay anything. If it doesn't, we need to delay the
+    // code below to only run once the page is actually rendered in the user's browser.
+    if (!this.$el.offsetTop) {
+      functionDelay = 600
+    }
+
+    setTimeout(() => {
+      const articleElements = this.$el.querySelectorAll('div > *:not(br, .invisible)')
+      const bottomOfScreen = window.scrollY + window.innerHeight
+
+      Array.from(articleElements).forEach((element) => {
+        if (element.offsetTop > bottomOfScreen) {
+          element.style.opacity = 0
+          element.classList.add('invisible')
+        }
+      })
+
+      window.addEventListener('scroll', this.onScrollEvent())
+    }, functionDelay)
+  },
+  unmounted() {
+    window.removeEventListener('scroll', this.onScrollEvent())
+  },
+  methods: {
+    onScrollEvent() {
+      // I use a generator here in order to remove the event when the component is unmounted.
+      // The EXACT same function must be passed on the removeEventListener as the add.
+      return throttle(this.fadeInVisibleText, 250)
+    },
+    fadeInVisibleText() {
+      const articleElements = this.$el.querySelectorAll('.invisible')
+      const inViewElements = []
+
+      const bottomOfScreen = window.scrollY + window.innerHeight
+
+      Array.from(articleElements).forEach((element) => {
+        if (element.offsetTop < bottomOfScreen) {
+          element.classList.remove('invisible')
+          inViewElements.push(element)
+        }
+      })
+
+      anime({
+        targets: inViewElements,
+        opacity: [0, 1],
+        translateX: [24, 0],
+        duration: 500,
+        delay: anime.stagger(100),
+        easing: 'easeOutQuad'
+      })
+    }
+  }
 }
 </script>
 

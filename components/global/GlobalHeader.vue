@@ -40,6 +40,7 @@ export default {
       document.documentElement.classList.remove(currentColourScheme)
       document.documentElement.classList.add(newColourScheme)
 
+      // Update local storage
       localStorage.theme = newColourScheme
 
       // Then just remove the transition class once everything's finished
