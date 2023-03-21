@@ -43,6 +43,7 @@ export default {
 
   &__articles {
     display: flex;
+    width: 100%;
     margin: 0 -1.5rem -1.5rem;
     align-items: flex-start;
     flex-wrap: wrap;
