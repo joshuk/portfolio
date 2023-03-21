@@ -47,12 +47,12 @@ export default {
   --offsetY: calc(-100% - 6px);
 
   position: relative;
-  display: inline;
+  display: inline-block;
 
   &.active,
   &:hover {
-    .baseInfoTooltip__label:after {
-      opacity: 1;
+    .baseInfoTooltip__label {
+      text-decoration-color: var(--main-colour);
     }
 
     .baseInfoTooltip__tooltip {
@@ -63,18 +63,12 @@ export default {
   &__label {
     cursor: help;
     white-space: nowrap;
-
-    &:after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      border-bottom: 2px dashed var(--main-colour);
-      opacity: 0.75;
-      transition: opacity 0.2s;
-      z-index: -1;
-    }
+    text-decoration: underline;
+    text-decoration-style: dashed;
+    text-decoration-thickness: 2px;
+    text-decoration-color: rgb(255 71 163 / 70%);
+    text-underline-offset: 3px;
+    transition: text-decoration-color 0.2s;
   }
 
   &__tooltip {
@@ -95,10 +89,10 @@ export default {
     &:after {
       content: '';
       position: absolute;
-      bottom: 0;
+      bottom: 1px;
       left: 50%;
-      border: 6px solid transparent;
-      border-top: 6px solid var(--main-colour);
+      border: 7px solid transparent;
+      border-top: 7px solid var(--main-colour);
       transform: translate(-50%, 100%);
     }
   }

@@ -45,7 +45,7 @@ export default {
     onScrollEvent() {
       // I use a generator here in order to remove the event when the component is unmounted.
       // The EXACT same function must be passed on the removeEventListener as the add.
-      return throttle(this.fadeInVisibleText, 100)
+      return throttle(this.fadeInVisibleText, 200)
     },
     fadeInVisibleText() {
       const articleElements = this.$el.querySelectorAll('.invisible')

@@ -7,7 +7,7 @@
       My name's Josh, I'm a 23 year old web developer
       from&nbsp;<BaseInfoTooltip ariaId="locationTooltip" tabindex="0">
         <template #label>Manchester, UK</template>
-        <template #tooltip>i'm actually from bolton but shh 🤫</template>
+        <template #tooltip>i'm actually from bolton 🤫</template>
       </BaseInfoTooltip>
       🐝
     </p>
