@@ -33,7 +33,7 @@ export default {
     },
     updateMouseCoords(e) {
       const xOffset = -(this.$el.offsetWidth / 2) + e.offsetX
-      const yOffset = e.offsetY - 12
+      const yOffset = e.offsetY - 6
 
       this.$el.setAttribute('style', `--offsetX: calc(-50% + ${xOffset}px); --offsetY: calc(-100% + ${yOffset}px);`)
     }
