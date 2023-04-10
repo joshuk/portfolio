@@ -83,6 +83,10 @@ p:last-child {
   margin: 0;
 }
 
+li:not(:last-child) {
+  margin-bottom: 0.5rem;
+}
+
 a {
   color: var(--main-colour);
   font-weight: 500;

@@ -14,8 +14,8 @@
     <p>
       I've been programming for over 10 years, the
       <BaseInfoTooltip ariaId="workTimeTooltip" tabindex="0">
-        <template #label>last 5 of those</template>
-        <template #tooltip>october 2017 - present</template>
+        <template #label>last 5-ish of those</template>
+        <template #tooltip>october 2017 - march 2023</template>
       </BaseInfoTooltip>
       working full time as a web developer.
     </p>

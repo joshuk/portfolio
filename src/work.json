@@ -1,8 +1,15 @@
 {
+  "mono-domains": {
+    "title": "mono domains",
+    "date": "March 2023",
+    "description": "A web application allowing users to search for and compare prices of domain names",
+    "image": "/images/mono-domains/cover.jpg",
+    "isPublished": true
+  },
   "artist-microsite": {
     "title": "Artist Microsite",
     "date": "July 2021",
-    "description": "An unused microsite built to showcase an art gallery's venture into NFTs",
+    "description": "A bespoke, animated microsite built to showcase an art gallery's venture into NFTs",
     "image": "/images/artist-microsite/cover.jpg",
     "isPublished": true
   },
