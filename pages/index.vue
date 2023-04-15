@@ -17,6 +17,7 @@
         })
 
         await animation.finished
+        document.documentElement.removeAttribute('style')
 
         done()
       },

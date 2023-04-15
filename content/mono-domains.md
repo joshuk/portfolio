@@ -185,10 +185,11 @@ From there I put together a small bash script to run the scraper and log the out
 ```bash
 #!/bin/bash
 
-source ~/.nvm/nvm.sh && (node ~/mono-scraper/app.js >> /var/log/scraper/$(date +%Y%m%d-%H%M).log 2>&1)
+source ~/.nvm/nvm.sh
+node ~/mono-scraper/app.js 2>&1 | tee /var/log/scraper/$(date +%Y%m%d-%H%M).log
 ```
 
-And set up a cron job to run that script three times a day. Sorted!
+And set up a cron job to run that script twice a day. Sorted!
 
 #### Front end
 
@@ -244,6 +245,32 @@ class FrontEndDeploymentHandler {
 ```
 
 Boom! 💥 Problem solved.
+
+<h3 id="an-update"><span>an update!</span></h3>
+
+Hey! So it's currently few days after I originally wrote this article and things have changed with what I just said above.
+
+Remember how I said that the build of the site would take so long that it'd eat up all my build minutes on Netlify? Well that's not entirely true anymore.
+
+<br>
+
+Turns out I was doing the site generation process in a fairly inefficient way.
+
+To make a long story short, for each page that the site generated it'd make a call to the back end to fetch the information for each extension.
+
+However, I realized that I was already fetching *some* of this information when generating a different page of the site (the extension listing page).
+
+So I thought to myself:
+
+*"If I include all the information that I need in the extension listing page endpoint, could I then cache the result and use it to generate the other pages? And would that be quicker? 🤔"*
+
+Turns out, the answer to both of those questions is a big fat **yes**! 🥳
+
+After taking a bit of time to implement these changes, I managed to take the build time (on my PC) down from **~4 minutes** to **less than 30 seconds**!
+
+<br>
+
+And with that, I canned the front end server and switched it over to use Netlify instead (for free 🤑)
 
 <hr>
 

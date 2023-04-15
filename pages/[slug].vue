@@ -95,6 +95,8 @@
         done()
       },
       onLeave: async (el, done) => {
+        document.documentElement.style.scrollBehavior = 'unset'
+
         const headerLogo = el.querySelector('.globalHeader__logo')
         const articleContent = el.querySelector('main')
 
