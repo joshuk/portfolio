@@ -4,17 +4,19 @@
 
     <p>Hiya! 👋</p>
     <p>
-      My name's Josh, I'm a 24 year old web developer
-      from&nbsp;<BaseInfoTooltip ariaId="locationTooltip" tabindex="0">
+      My name's Josh, I'm a 24 year old web developer from&nbsp;<BaseInfoTooltip
+        ariaId="locationTooltip"
+        tabindex="0"
+      >
         <template #label>Manchester, UK</template>
         <template #tooltip>i'm actually from bolton 🤫</template>
       </BaseInfoTooltip>
       🐝
     </p>
     <p>
-      I've been programming for over 10 years, the
+      I've been programming for over 11 years, the
       <BaseInfoTooltip ariaId="workTimeTooltip" tabindex="0">
-        <template #label>last 5-ish of those</template>
+        <template #label>last 6 of those</template>
         <template #tooltip>october 2017 - present</template>
       </BaseInfoTooltip>
       working full time as a web developer.
@@ -25,23 +27,25 @@
         <template #label>tons of experience</template>
         <template #tooltip>march 2014 - present</template>
       </BaseInfoTooltip>
-      with HTML, CSS, PHP and Javascript
-      (inc. jQuery, Vue and Node)
-      and I'm always up for a new challenge!</p>
+      with HTML, CSS, PHP and Javascript (inc. React, Vue and Node) and I'm
+      always up for a new challenge!
+    </p>
     <p>
       Outside of that you can usually find me
       <BaseInfoTooltip ariaId="gamesTooltip" tabindex="0">
         <template #label>playing video games</template>
-        <template #tooltip>🥰 🐒🎯🎈</template>
-      </BaseInfoTooltip>,
+        <template #tooltip>🥰 🐒🎯🎈</template> </BaseInfoTooltip
+      >,
       <BaseInfoTooltip ariaId="musicTooltip" tabindex="0">
         <template #label>listening to music</template>
-        <template #tooltip>41,000+ mins in 2022 🎧</template>
+        <template #tooltip>52,000+ mins in 2023 🎧</template>
       </BaseInfoTooltip>
       or&nbsp;<BaseInfoTooltip ariaId="travelTooltip" tabindex="0">
         <template #label>travelling abroad</template>
-        <template #tooltip>check out my instagram 📸🌄</template>
-      </BaseInfoTooltip>.
+        <template #tooltip
+          >check out my instagram 📸🌄</template
+        > </BaseInfoTooltip
+      >.
     </p>
 
     <p class="homepageAbout__socialsHeader">Check me out:</p>
@@ -51,7 +55,7 @@
 
 <script>
 export default {
-  name: 'HomepageAbout'
+  name: 'HomepageAbout',
 }
 </script>
 

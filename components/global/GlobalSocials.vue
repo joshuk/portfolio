@@ -1,52 +1,45 @@
 <template>
   <div class="globalSocials">
     <a
-      href="https://www.instagram.com/jo.sh.ee/"
-      class="globalSocials__icon globalSocials__icon--instagram"
-      target="blank"
-      rel="noreferrer noopener"
-      aria-label="Visit my Instagram">
-      <BaseInstagramIcon />
-    </a>
-    <a
       href="https://github.com/joshuk"
       class="globalSocials__icon globalSocials__icon--github"
       target="blank"
       rel="noreferrer noopener"
-      aria-label="Visit my Github">
+      aria-label="Visit my Github"
+    >
       <IconGithub />
     </a>
     <a
-      href="https://gitlab.com/joshuk"
-      class="globalSocials__icon globalSocials__icon--gitlab"
+      href="https://www.instagram.com/jo.sh.ee/"
+      class="globalSocials__icon globalSocials__icon--instagram"
       target="blank"
       rel="noreferrer noopener"
-      aria-label="Visit my Gitlab">
-      <IconGitlab />
+      aria-label="Visit my Instagram"
+    >
+      <BaseInstagramIcon />
     </a>
     <a
       href="https://codepen.io/joshuk"
       class="globalSocials__icon globalSocials__icon--codepen"
       target="blank"
       rel="noreferrer noopener"
-      aria-label="Visit my Codepen">
+      aria-label="Visit my Codepen"
+    >
       <IconCodepen />
     </a>
-  </div>  
+  </div>
 </template>
 
 <script>
 import IconGithub from '@/assets/svg/github-icon.svg'
-import IconGitlab from '@/assets/svg/gitlab-icon.svg'
 import IconCodepen from '@/assets/svg/codepen-icon.svg'
 
 export default {
   name: 'GlobalSocials',
   components: {
     IconGithub,
-    IconGitlab,
-    IconCodepen
-  }
+    IconCodepen,
+  },
 }
 </script>
 

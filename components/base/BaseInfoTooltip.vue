@@ -1,8 +1,12 @@
 <template>
-  <span class="baseInfoTooltip" :class="{ 'active': isActive }">
-    <span class="baseInfoTooltip__label" :aria-describedby="ariaId"><slot name="label" /></span>
+  <span class="baseInfoTooltip" :class="{ active: isActive }">
+    <span class="baseInfoTooltip__label" :aria-describedby="ariaId"
+      ><slot name="label"
+    /></span>
 
-    <span role="tooltip" :id="ariaId" class="baseInfoTooltip__tooltip"><slot name="tooltip" /></span>
+    <span role="tooltip" :id="ariaId" class="baseInfoTooltip__tooltip"
+      ><slot name="tooltip"
+    /></span>
   </span>
 </template>
 
@@ -12,12 +16,12 @@ export default {
   props: {
     ariaId: {
       type: String,
-      default: ''
-    }
+      default: '',
+    },
   },
   data() {
     return {
-      isActive: false
+      isActive: false,
     }
   },
   mounted() {
@@ -33,11 +37,14 @@ export default {
     },
     updateMouseCoords(e) {
       const xOffset = -(this.$el.offsetWidth / 2) + e.offsetX
-      const yOffset = e.offsetY - 6
+      const yOffset = e.offsetY - 10
 
-      this.$el.setAttribute('style', `--offsetX: calc(-50% + ${xOffset}px); --offsetY: calc(-100% + ${yOffset}px);`)
-    }
-  }
+      this.$el.setAttribute(
+        'style',
+        `--offsetX: calc(-50% + ${xOffset}px); --offsetY: calc(-100% + ${yOffset}px);`
+      )
+    },
+  },
 }
 </script>
 
@@ -47,7 +54,7 @@ export default {
   --offsetY: calc(-100% - 6px);
 
   position: relative;
-  display: inline-block;
+  display: inline-flex;
 
   &.active,
   &:hover {
@@ -77,7 +84,7 @@ export default {
     left: 50%;
     padding: 1px 6px;
     background: var(--main-colour);
-    color: #FBFBFB;
+    color: #fbfbfb;
     font-size: 13px;
     font-weight: 500;
     opacity: 0;
