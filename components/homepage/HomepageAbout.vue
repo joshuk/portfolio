@@ -4,7 +4,7 @@
 
     <p>Hiya! 👋</p>
     <p>
-      My name's Josh, I'm a 24 year old web developer from&nbsp;<BaseInfoTooltip
+      My name's Josh, I'm a 25 year old web developer from&nbsp;<BaseInfoTooltip
         ariaId="locationTooltip"
         tabindex="0"
       >
@@ -14,9 +14,9 @@
       🐝
     </p>
     <p>
-      I've been programming for over 11 years, the
+      I've been programming for over 12 years, the
       <BaseInfoTooltip ariaId="workTimeTooltip" tabindex="0">
-        <template #label>last 6 of those</template>
+        <template #label>last 7 of those</template>
         <template #tooltip>october 2017 - present</template>
       </BaseInfoTooltip>
       working full time as a web developer.
@@ -38,7 +38,7 @@
       >,
       <BaseInfoTooltip ariaId="musicTooltip" tabindex="0">
         <template #label>listening to music</template>
-        <template #tooltip>52,000+ mins in 2023 🎧</template>
+        <template #tooltip>41,000+ mins in 2024 🎧</template>
       </BaseInfoTooltip>
       or&nbsp;<BaseInfoTooltip ariaId="travelTooltip" tabindex="0">
         <template #label>travelling abroad</template>
